@@ -2,6 +2,14 @@
 
 A MERN shop for a home bakery in Hosapete: the customer-facing side of the business. Customers browse the menu, design celebration cakes, order for a chosen date and time slot, and watch their order update live as it's confirmed and baked.
 
+**Live demo: [crave-en.onrender.com](https://crave-en.onrender.com)**
+
+- Sign up with any email, design a birthday cake, and place an order. Use the coupon `FIRST10` on your first order.
+- It runs on free hosting, so the first visit after a quiet spell can take up to a minute while the server wakes up.
+- This is a portfolio demo: no payment is taken and nothing is delivered.
+
+API health check: [crave-en-api.onrender.com/api/health](https://crave-en-api.onrender.com/api/health)
+
 It works together with the [Smart Inventory System](https://github.com/haneef333/smart-inventory-system), the owner's app. A new order pings the owner instantly (sound + notification). When the owner **accepts** it, the ingredients are deducted automatically using each item's recipe, scaled by size: a 2 kg cake uses twice the 1 kg recipe. Every status change goes straight back to the customer's screen and inbox.
 
 ```
