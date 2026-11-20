@@ -1,0 +1,14 @@
+# Netlify settings for the storefront website
+[build]
+  base = "client"
+  command = "npm run build"
+  publish = "dist"
+
+# Set VITE_API_URL in Netlify's environment settings, e.g.
+# https://crave-en-api.onrender.com/api
+
+# Page refreshes on routes like /orders should load the app
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
