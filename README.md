@@ -145,7 +145,7 @@ Each one switches itself on when its settings are in `server/.env` (details are 
 
 Everything runs on free plans: **MongoDB Atlas** for the database and **Render** for the API and the website. `render.yaml` is a Render Blueprint that creates both services from this repo.
 
-1. **Database (MongoDB Atlas):** create a free M0 cluster. Under *Database Access*, add a user; under *Network Access*, allow `0.0.0.0/0`. Copy the connection string and add the database name before the `?`, e.g. `...mongodb.net/crave_en?retryWrites=true&w=majority`.
+1. **Database (MongoDB Atlas):** create a free M0 cluster (AWS, Singapore, next to the Render API). Under *Database Access*, add a user; under *Network Access*, allow `0.0.0.0/0`. Copy the connection string and add the database name before the `?`, e.g. `...mongodb.net/crave_en?retryWrites=true&w=majority`.
 2. **API and website (Render):** *New → Blueprint*, connect this repo, and fill in the values Render asks for:
    - `MONGO_URI`: the Atlas string from step 1
    - `CLIENT_URL`: `https://crave-en.onrender.com` (the website's address, no trailing slash)
@@ -153,14 +153,13 @@ Everything runs on free plans: **MongoDB Atlas** for the database and **Render**
    - `VITE_API_URL`: `https://crave-en-api.onrender.com/api`
    - `INVENTORY_API_URL`: your inventory backend's Render address
    - `INTEGRATION_SECRET`: a long random string (the same one goes into the inventory backend)
-   - `ADMIN_EMAIL` and `ADMIN_PASSWORD`: the owner's login for the shop
    - `CLOUDINARY_URL`: from a free Cloudinary account, so customers' reference photos survive restarts
 
    If Render gives a service a different address (it adds a suffix when a name is taken), update `CLIENT_URL`, `PUBLIC_URL` and `VITE_API_URL` to match and redeploy.
-3. **Fill the menu:** from your own computer, run the seed once against Atlas:
+3. **Fill the menu and create the owner login:** from your own computer, run the seed once against Atlas:
    ```powershell
    cd server
-   $env:MONGO_URI="<your Atlas string>"; $env:ADMIN_EMAIL="<same as on Render>"; $env:ADMIN_PASSWORD="<same as on Render>"
+   $env:MONGO_URI="<your Atlas string>"; $env:ADMIN_EMAIL="<owner email>"; $env:ADMIN_PASSWORD="<a strong password>"
    npm run seed
    ```
 4. **Inventory backend (already on Render):** in its *Environment*, add `INTEGRATION_SECRET` (same value as above), `STOREFRONT_API_URL=https://crave-en-api.onrender.com` and `OWNER_PASSWORD`, then redeploy. Point the owner website's `VITE_API_URL` at the inventory backend as before.

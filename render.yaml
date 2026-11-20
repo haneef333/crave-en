@@ -9,6 +9,7 @@ services:
     runtime: node
     rootDir: server
     plan: free
+    region: singapore # closest Render region to India
     buildCommand: npm ci
     startCommand: npm start
     healthCheckPath: /api/health
@@ -29,10 +30,6 @@ services:
         sync: false # your inventory backend on Render, e.g. https://smart-inventory-system-xxxx.onrender.com
       - key: INTEGRATION_SECRET
         sync: false # a long random string; put the exact same value in the inventory backend
-      - key: ADMIN_EMAIL
-        sync: false
-      - key: ADMIN_PASSWORD
-        sync: false
       - key: CLOUDINARY_URL
         sync: false # strongly recommended: Render's disk is wiped on every restart, so uploaded photos need Cloudinary
       - key: GOOGLE_CLIENT_ID
