@@ -3,7 +3,7 @@
 // The picture morphs from the card into the sheet (shared layoutId).
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useDragControls } from 'motion/react'
-import ProductArt from './ProductArt'
+import ProductArt, { productPhoto } from './ProductArt'
 import ProductInfo from './ProductInfo'
 import CakeMessage from './CakeMessage'
 
@@ -55,7 +55,7 @@ function Sheet({ product, initialOptions, onClose }) {
         <button ref={closeRef} type="button" className="sheet-close" onClick={onClose} aria-label="Close">×</button>
         <div className="sheet-art-wrap">
           <ProductArt product={product} layoutId={`art-${product._id}`} artRef={artRef} className="sheet-art" radius={0} eager />
-          {product.customizable && <CakeMessage text={options.message} candles={options.candles} />}
+          {product.customizable && <CakeMessage text={options.message} candles={options.candles} photo={Boolean(productPhoto(product))} />}
         </div>
         <div className="sheet-body">
           <ProductInfo product={product} artRef={artRef} headingLevel="h2" showFullPageLink initialOptions={initialOptions} onOptionsChange={onOptionsChange} />

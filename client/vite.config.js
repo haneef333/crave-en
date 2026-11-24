@@ -32,8 +32,8 @@ export default defineConfig({
         navigateFallbackDenylist: [/^\/api\//, /^\/uploads\//, /^\/socket\.io\//],
         runtimeCaching: [
           {
-            // Product photos: show the saved copy, refresh it in the background
-            urlPattern: ({ url }) => url.pathname.startsWith('/uploads/') || url.hostname === 'res.cloudinary.com',
+            // Photos: show the saved copy, refresh it in the background
+            urlPattern: ({ url }) => url.pathname.startsWith('/photos/') || url.pathname.startsWith('/uploads/') || url.hostname === 'res.cloudinary.com',
             handler: 'StaleWhileRevalidate',
             options: { cacheName: 'product-photos', expiration: { maxEntries: 80, maxAgeSeconds: 30 * 24 * 3600 } },
           },

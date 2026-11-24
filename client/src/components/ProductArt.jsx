@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'motion/react'
 import { assetUrl } from '../utils'
+import { PRODUCT_PHOTOS } from '../photos'
 
 const INK = '#3a1f17'
 const S = { stroke: INK, strokeWidth: 3, strokeLinejoin: 'round', strokeLinecap: 'round' }
@@ -212,6 +213,12 @@ const ART = {
 }
 
 // layoutId lets the picture morph between the menu card and the product sheet.
+// The picture to show for a product: the owner's upload, else the bakery's own photo of it
+export function productPhoto(product) {
+  if (product?.imageUrl) return assetUrl(product.imageUrl)
+  return PRODUCT_PHOTOS[product?.slug] || null
+}
+
 export default function ProductArt({ product, className = '', eager = false, plate: plateOverride, layoutId, artRef, radius }) {
   const [imageFailed, setImageFailed] = useState(false)
   const plate = plateOverride || PLATE_COLORS[product.category] || '#f3d27a'
@@ -219,11 +226,12 @@ export default function ProductArt({ product, className = '', eager = false, pla
   const Wrapper = layoutId ? motion.div : 'div'
   const wrapperProps = layoutId ? { layoutId, transition: { type: 'spring', stiffness: 260, damping: 30 } } : {}
 
-  if (product.imageUrl && !imageFailed) {
+  const photo = productPhoto(product)
+  if (photo && !imageFailed) {
     return (
       <Wrapper ref={artRef} className={`product-art ${className}`} style={style} {...wrapperProps}>
         <img
-          src={assetUrl(product.imageUrl)}
+          src={photo}
           alt={product.name}
           loading={eager ? 'eager' : 'lazy'}
           onError={() => setImageFailed(true)}

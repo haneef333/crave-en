@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { errorMessage, getProduct } from '../api/client'
-import ProductArt from '../components/ProductArt'
+import ProductArt, { productPhoto } from '../components/ProductArt'
 import ProductInfo from '../components/ProductInfo'
 import CakeMessage from '../components/CakeMessage'
 
@@ -56,7 +56,7 @@ export default function ProductDetail() {
           className="sheet-art-wrap"
         >
           <ProductArt product={product} className="product-art-large" artRef={artRef} eager />
-          {product.customizable && <CakeMessage text={options.message} candles={options.candles} />}
+          {product.customizable && <CakeMessage text={options.message} candles={options.candles} photo={Boolean(productPhoto(product))} />}
         </motion.div>
         <ProductInfo product={product} artRef={artRef} onOptionsChange={onOptionsChange} />
       </div>

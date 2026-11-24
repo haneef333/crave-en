@@ -213,7 +213,7 @@ p { margin: 0 0 0.8em; text-wrap: pretty; }
   margin-right: calc(-1 * max(var(--gutter), (100vw - var(--wrap)) / 2));
   background: var(--counter);
 }
-.hero-photo > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero-photo > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; }
 
 /* Until real photos arrive: today's bakes as illustrations on a counter */
 .counter-fallback {
@@ -310,6 +310,7 @@ p { margin: 0 0 0.8em; text-wrap: pretty; }
   font-family: var(--display); font-weight: 700; font-size: clamp(1rem, 2.2vw, 1.375rem);
   color: var(--kumkum); text-align: center; line-height: 1.15; overflow-wrap: anywhere;
 }
+.cake-plaque-note { display: block; margin-top: 2px; font-family: var(--text); font-weight: 600; font-size: 0.8rem; color: var(--ink); }
 .cake-candles { position: absolute; top: 11%; display: flex; gap: 7px; }
 .candle {
   display: block; width: 7px; height: 32px; position: relative; transform-origin: bottom;
@@ -372,7 +373,7 @@ p { margin: 0 0 0.8em; text-wrap: pretty; }
 .visit-slots li { padding: 2px 0; }
 .visit-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
 .visit-photo { grid-column: 7 / -1; position: relative; margin: 0; background: var(--counter); min-height: 320px; }
-.visit-photo > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.visit-photo > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; }
 .visit-photo .product-art { position: absolute; inset: 0; }
 .visit-photo .product-art svg { width: 56%; }
 

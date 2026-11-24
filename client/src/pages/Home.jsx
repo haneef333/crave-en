@@ -5,7 +5,7 @@ import { getProducts } from '../api/client'
 import { BAKERY } from '../config'
 import { PHOTOS, PHOTO_ALT } from '../photos'
 import Photo from '../components/Photo'
-import ProductArt from '../components/ProductArt'
+import ProductArt, { productPhoto } from '../components/ProductArt'
 import ProductCard from '../components/ProductCard'
 import ProductSheet from '../components/ProductSheet'
 import QuantityStepper from '../components/QuantityStepper'
@@ -133,7 +133,7 @@ function CelebrationCakes({ cake, meta, onDesign }) {
           alt={PHOTO_ALT.cakes[0]}
           fallback={<ProductArt product={cake} />}
         >
-          <CakeMessage text={message} candles={candles} />
+          <CakeMessage text={message} candles={candles} photo={Boolean(PHOTOS.cakes[0] || productPhoto(cake))} />
         </Photo>
 
         <div className="cakes-actions">
@@ -284,10 +284,11 @@ export default function Home() {
     getProducts().then(setProducts).catch(() => setError(true))
   }, [])
 
+  // One row of bakes: those with real photos first, then the owner's featured picks
   const featured = useMemo(() => {
     if (!products) return null
-    const picked = products.filter(p => p.isFeatured)
-    return (picked.length ? picked : products).slice(0, 8)
+    const score = p => (productPhoto(p) ? 2 : 0) + (p.isFeatured ? 1 : 0)
+    return [...products].sort((a, b) => score(b) - score(a)).slice(0, 4)
   }, [products])
   const cake = products?.find(p => p.customizable && p.sizes?.length)
 
